@@ -10,7 +10,7 @@ if [ -n "${1}" ]; then
   exec "${*}"
 fi
 
-DEFAULT_ARGS="--http-port 8081 --dir=${TELEGRAM_WORK_DIR} --temp-dir=${TELEGRAM_TEMP_DIR} --username=${USERNAME} --groupname=${GROUPNAME}"
+DEFAULT_ARGS="--http-port ${PORT} --dir=${TELEGRAM_WORK_DIR} --temp-dir=${TELEGRAM_TEMP_DIR} --username=${USERNAME} --groupname=${GROUPNAME}"
 CUSTOM_ARGS=""
 
 if [ -n "$TELEGRAM_LOG_FILE" ]; then
