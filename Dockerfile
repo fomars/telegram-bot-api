@@ -8,7 +8,7 @@ RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git .
 RUN mkdir -p build \
  && cd build \
  && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. .. \
- && cmake --build . --target install -j 4 \
+ && cmake --build . --target install \
  && strip /usr/src/telegram-bot-api/bin/telegram-bot-api
 
 FROM alpine:3.12
