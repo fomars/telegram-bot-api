@@ -4,11 +4,11 @@ ENV CXXFLAGS=""
 WORKDIR /usr/src/telegram-bot-api
 
 RUN apk add --no-cache --update alpine-sdk linux-headers git zlib-dev openssl-dev gperf cmake
-COPY telegram-bot-api /usr/src/telegram-bot-api
+RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git .
 RUN mkdir -p build \
  && cd build \
  && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. .. \
- && cmake --build . --target install -j $(nproc) \
+ && cmake --build . --target install -j 4 \
  && strip /usr/src/telegram-bot-api/bin/telegram-bot-api
 
 FROM alpine:3.12
@@ -25,5 +25,4 @@ RUN addgroup -g 101 -S telegram-bot-api \
  && mkdir -p ${TELEGRAM_WORK_DIR} ${TELEGRAM_TEMP_DIR} \
  && chown telegram-bot-api:telegram-bot-api ${TELEGRAM_WORK_DIR} ${TELEGRAM_TEMP_DIR}
 
-EXPOSE ${PORT}/tcp 8082/tcp
 ENTRYPOINT ["/docker-entrypoint.sh"]
